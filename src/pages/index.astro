@@ -56,27 +56,38 @@ const jsonLd = {
   jsonLd={jsonLd}
 >
   <section class="hero">
-    <div class="container">
-      <p class="eyebrow">Recife, Pernambuco · Data & Software Engineering</p>
-      <h1>Hugo Ramos<span>dados que viram sistemas.</span></h1>
-      <p class="hero-copy">
-        Atuo na interseção entre Engenharia de Dados e Engenharia de Software, construindo pipelines,
-        APIs, aplicações e ferramentas que colocam dados em uso.
-      </p>
-      <div class="hero-meta" aria-label="Tecnologias principais">
-        <span>Python</span><span>PostgreSQL</span><span>FastAPI</span><span>React</span><span>TypeScript</span>
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow">Recife, Pernambuco · Data & Software Engineering</p>
+        <h1>Hugo Ramos<span>dados que viram sistemas.</span></h1>
+        <p class="hero-copy">
+          Atuo na interseção entre Engenharia de Dados e Engenharia de Software, construindo pipelines,
+          APIs, aplicações e ferramentas que colocam dados em uso.
+        </p>
+        <div class="hero-meta" aria-label="Tecnologias principais">
+          <span>Python</span><span>PostgreSQL</span><span>FastAPI</span><span>React</span><span>TypeScript</span>
+        </div>
+        <div class="actions">
+          <a class="button primary" href="/projetos">Ver projetos</a>
+          <a class="button secondary" href="/sobre">Sobre mim</a>
+        </div>
       </div>
-      <div class="actions">
-        <a class="button primary" href="/projetos">Ver projetos</a>
-        <a class="button secondary" href="/sobre">Sobre mim</a>
-      </div>
+      <aside class="hero-aside" aria-label="Ficha técnica">
+        <div class="hero-aside-topline"><span>PROFILE / 2026</span><span class="status-dot"></span></div>
+        <dl>
+          <div><dt>Atuação atual</dt><dd>Engenharia de Dados + Software</dd></div>
+          <div><dt>Localização</dt><dd>Recife, Pernambuco</dd></div>
+          <div><dt>Foco</dt><dd>Data Platforms · APIs · Automation · AI Tooling</dd></div>
+        </dl>
+        <div class="hero-aside-footer"><span>01</span><span>systems / data / context</span></div>
+      </aside>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
       <div class="section-header">
-        <h2>Projetos selecionados</h2>
+        <h2><span class="section-number">01</span>Projetos selecionados</h2>
         <p>
           Engenharia aplicada a problemas reais: software, dados, geoespacial, automação e ferramentas para agentes de IA.
         </p>
@@ -89,6 +100,7 @@ const jsonLd = {
             summary={project.data.summary}
             slug={project.id}
             status={project.data.status}
+            stack={project.data.stack}
           />
         ))}
       </div>
@@ -98,7 +110,7 @@ const jsonLd = {
   <section class="section">
     <div class="container">
       <div class="section-header">
-        <h2>Como eu trabalho</h2>
+        <h2><span class="section-number">02</span>Como eu trabalho</h2>
         <p>
           Meu foco não é apenas mover dados ou construir telas isoladas. Trabalho na cadeia completa entre origem, regra de negócio e produto final.
         </p>
@@ -123,7 +135,7 @@ const jsonLd = {
   <section class="section">
     <div class="container">
       <div class="section-header">
-        <h2>Escrevo sobre engenharia</h2>
+        <h2><span class="section-number">03</span>Escrevo sobre engenharia</h2>
         <p>
           Notas técnicas sobre decisões que surgem no desenvolvimento de sistemas, pipelines e ferramentas orientadas a dados.
         </p>
@@ -135,6 +147,7 @@ const jsonLd = {
               {article.data.publishedAt.toLocaleDateString('pt-BR', { year: 'numeric', month: 'short' })}
             </time>
             <div>
+              <div class="article-meta"><span class="article-kind"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.75h9l3 3V20.25H6V3.75Zm8.25 0v3h3M8.5 10h7M8.5 13h7M8.5 16h4" /></svg>Artigo técnico</span><span>6 min de leitura</span></div>
               <h3>{article.data.title}</h3>
               <p>{article.data.description}</p>
             </div>

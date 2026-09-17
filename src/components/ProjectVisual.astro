@@ -1,0 +1,66 @@
+---
+interface Props {
+  slug: string;
+  stack: string[];
+}
+
+const { slug, stack } = Astro.props;
+const label = {
+  'agentic-mcp': 'MCP / REPOSITÓRIO',
+  'atlas-pe': 'ATLAS.PE / HISTÓRICO',
+  geope: 'GEOPE / TERRITÓRIO',
+  datafrota: 'DATAFROTA / OPERAÇÃO',
+  'radar-energetico': 'RADAR / INDICADORES',
+}[slug] ?? 'PROJETO / SISTEMA';
+---
+
+<div class={`project-visual project-visual-${slug}`} aria-hidden="true">
+  {slug === 'geope' ? (
+    <img src="/projects/geope-banner.png" alt="" loading="lazy" />
+  ) : (
+    <>
+      <div class="visual-topline">
+        <span>{label}</span>
+        <span class="visual-signal"></span>
+      </div>
+
+      {slug === 'agentic-mcp' && (
+        <div class="visual-mcp">
+          <div class="visual-code-line"><span>01</span> tool.context()</div>
+          <div class="visual-code-line active"><span>02</span> git.diff --check</div>
+          <div class="visual-code-line"><span>03</span> ast.search(symbol)</div>
+          <div class="visual-node-row"><i></i><i></i><i></i><b>agent</b><i></i><i></i></div>
+        </div>
+      )}
+
+      {slug === 'atlas-pe' && (
+        <div class="visual-history">
+          <div class="visual-history-line"><b>2026</b><span></span><em>snapshot</em></div>
+          <div class="visual-history-line current"><b>2025</b><span></span><em>alteração detectada</em></div>
+          <div class="visual-history-line"><b>2024</b><span></span><em>estado anterior</em></div>
+        </div>
+      )}
+
+      {slug === 'datafrota' && (
+        <div class="visual-table">
+          <div class="visual-table-row visual-table-head"><span>VEÍCULO</span><span>STATUS</span><span>UG</span></div>
+          <div class="visual-table-row"><span>FRT-042</span><b></b><span>01</span></div>
+          <div class="visual-table-row"><span>FRT-118</span><b></b><span>03</span></div>
+          <div class="visual-table-row"><span>FRT-203</span><b></b><span>07</span></div>
+        </div>
+      )}
+
+      {slug === 'radar-energetico' && (
+        <div class="visual-radar">
+          <div class="visual-bars"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="visual-axis"><span>JAN</span><span>MAR</span><span>MAI</span><span>JUL</span></div>
+          <span class="visual-radar-note">EM DESENVOLVIMENTO</span>
+        </div>
+      )}
+    </>
+  )}
+
+  <div class="visual-stack">
+    {stack.slice(0, 3).map((item) => <span>{item}</span>)}
+  </div>
+</div>

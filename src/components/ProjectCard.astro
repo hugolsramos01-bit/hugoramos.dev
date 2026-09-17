@@ -5,14 +5,18 @@ interface Props {
   summary: string;
   slug: string;
   status?: string;
+  stack: string[];
 }
 
-const { index, title, summary, slug, status } = Astro.props;
+import ProjectVisual from './ProjectVisual.astro';
+
+const { index, title, summary, slug, status, stack } = Astro.props;
 ---
 
 <a class="project-card" href={`/projetos/${slug}`}>
-  <div class="project-index">{index}{status ? ` · ${status}` : ''}</div>
-  <div>
+  <ProjectVisual slug={slug} stack={stack} />
+  <div class="project-card-copy">
+    <div class="project-index">{index}{status ? ` · ${status}` : ''}</div>
     <h3>{title}</h3>
     <p>{summary}</p>
   </div>
