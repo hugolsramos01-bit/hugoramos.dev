@@ -141,8 +141,8 @@ main {
 }
 
 .header-socials a {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border: 1px solid transparent;
   border-radius: 50%;
 }
@@ -155,8 +155,8 @@ main {
 
 .header-socials svg,
 .footer-links svg {
-  width: 18px;
-  height: 18px;
+  width: 21px;
+  height: 21px;
   fill: currentColor;
 }
 
