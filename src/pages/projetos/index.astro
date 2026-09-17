@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+
+const projects = (await getCollection('projects', ({ data }) => data.public))
+  .sort((a, b) => a.data.order - b.data.order);
+
+const description = 'Projetos de Hugo Ramos em Engenharia de Dados, Engenharia de Software, APIs, automação, geoespacial e ferramentas para agentes de IA.';
+---
+
+<BaseLayout title="Projetos — Hugo Ramos" description={description}>
+  <header class="page-header">
+    <div class="container">
+      <p class="eyebrow">Projetos</p>
+      <h1>Sistemas, dados e ferramentas em produção de valor.</h1>
+      <p>
+        Uma seleção de projetos em que atuei diretamente no desenvolvimento, arquitetura de dados, backend,
+        interfaces, automação ou evolução técnica.
+      </p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="project-list">
+        {projects.map((project, index) => (
+          <ProjectCard
+            index={String(index + 1).padStart(2, '0')}
+            title={project.data.title}
+            summary={project.data.summary}
+            slug={project.id}
+            status={project.data.status}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

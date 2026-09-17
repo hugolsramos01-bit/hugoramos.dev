@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const description = 'Sobre Hugo Ramos: profissional de Engenharia de Dados e Software em Recife, com experiência em Python, PostgreSQL, FastAPI, React, APIs, automação e Business Intelligence.';
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  '@id': 'https://hugoramos.dev/sobre#profile-page',
+  url: 'https://hugoramos.dev/sobre',
+  name: 'Sobre Hugo Ramos',
+  description,
+  mainEntity: {
+    '@type': 'Person',
+    '@id': 'https://hugoramos.dev/#person',
+    name: 'Hugo Ramos',
+    alternateName: 'Hugo Leonardo dos Santos Ramos',
+    url: 'https://hugoramos.dev/',
+    jobTitle: 'Data & Software Engineer',
+    sameAs: [
+      'https://www.linkedin.com/in/hugo-sramos/',
+      'https://github.com/hugolsramos01-bit',
+    ],
+  },
+};
+---
+
+<BaseLayout title="Sobre Hugo Ramos — Engenharia de Dados e Software" description={description} jsonLd={jsonLd}>
+  <header class="page-header">
+    <div class="container">
+      <p class="eyebrow">Sobre</p>
+      <h1>Engenharia de dados e software, no mesmo problema.</h1>
+      <p>
+        Sou Hugo Ramos, profissional de tecnologia em Recife. Trabalho entre dados, backend e produto,
+        principalmente com Python, PostgreSQL, FastAPI, React e automação.
+      </p>
+    </div>
+  </header>
+
+  <section class="content narrow">
+    <p>
+      Minha atuação começou mais próxima de análise de dados e Business Intelligence, mas evoluiu rapidamente
+      para uma responsabilidade mais ampla: construir a infraestrutura, as APIs e as aplicações que fazem os dados chegarem ao uso real.
+    </p>
+    <p>
+      Hoje atuo na Administração Pública de Pernambuco com soluções para patrimônio, frota, energia e processos corporativos.
+      Isso inclui pipelines de ingestão e histórico, modelagem em PostgreSQL, APIs, aplicações web, automações, observabilidade e produtos analíticos.
+    </p>
+
+    <h2>O que caracteriza meu trabalho</h2>
+    <p>
+      Gosto especialmente de problemas em que não existe uma fronteira clara entre “dados” e “software”.
+      Um pipeline só gera valor quando a informação chega com qualidade a uma decisão, uma API, uma interface ou um processo operacional.
+    </p>
+    <p>
+      Por isso, minha atuação costuma atravessar a cadeia inteira: entender a fonte, estruturar a ingestão, modelar os dados,
+      construir serviços de acesso, desenvolver a experiência de consulta e acompanhar a operação da solução.
+    </p>
+
+    <h2>Experiência</h2>
+    <div class="timeline">
+      <article>
+        <h3>Chefe do Núcleo de Informações de Patrimônio e Serviços Corporativos</h3>
+        <p><strong>Secretaria de Administração de Pernambuco · 2026 — atual</strong></p>
+        <p>
+          Liderança técnica e desenvolvimento de soluções de Engenharia de Dados, Software e BI aplicadas a patrimônio, frota, energia e processos corporativos.
+        </p>
+      </article>
+      <article>
+        <h3>Especialista em Dados</h3>
+        <p><strong>Secretaria de Administração de Pernambuco · 2024 — 2026</strong></p>
+        <p>
+          Desenvolvimento de pipelines, APIs, sistemas de consulta, automações, Data Warehouses e produtos analíticos para gestão pública.
+        </p>
+      </article>
+      <article>
+        <h3>Estagiário de Suporte</h3>
+        <p><strong>Tribunal Regional Eleitoral de Pernambuco · 2023 — 2024</strong></p>
+        <p>
+          Suporte técnico, validação de sistemas, documentação e manutenção de equipamentos e ambientes de usuário.
+        </p>
+      </article>
+    </div>
+
+    <h2>Formação</h2>
+    <div class="timeline">
+      <article>
+        <h3>Pós-graduação em Análise de Dados</h3>
+        <p><strong>Descomplica Faculdade Digital · 2025</strong></p>
+      </article>
+      <article>
+        <h3>Análise e Desenvolvimento de Sistemas</h3>
+        <p><strong>UniFBV Wyden · 2024</strong></p>
+      </article>
+    </div>
+
+    <h2>Áreas e tecnologias</h2>
+    <div class="stack-grid">
+      <div class="stack-block">
+        <h3>Data Engineering</h3>
+        <p>Python, SQL, PostgreSQL, ETL/ELT, integração de APIs, snapshots, auditoria, Data Warehouse e modelagem.</p>
+      </div>
+      <div class="stack-block">
+        <h3>Software Engineering</h3>
+        <p>FastAPI, React, Node.js, TypeScript, APIs REST, testes, autenticação, Git e CI/CD.</p>
+      </div>
+      <div class="stack-block">
+        <h3>Analytics & operação</h3>
+        <p>Power BI, indicadores, observabilidade, documentação técnica, automação e sistemas de apoio à decisão.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

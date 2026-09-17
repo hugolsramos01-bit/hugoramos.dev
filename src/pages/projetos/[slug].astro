@@ -1,0 +1,78 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects', ({ data }) => data.public);
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const canonical = new URL(`/projetos/${project.id}`, Astro.site).toString();
+const description = project.data.summary;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  '@id': `${canonical}#project`,
+  url: canonical,
+  name: project.data.title,
+  description,
+  author: {
+    '@type': 'Person',
+    '@id': 'https://hugoramos.dev/#person',
+    name: 'Hugo Ramos',
+  },
+  keywords: project.data.stack.join(', '),
+};
+---
+
+<BaseLayout title={`${project.data.title} — Projeto de Hugo Ramos`} description={description} canonical={canonical} jsonLd={jsonLd}>
+  <header class="page-header">
+    <div class="container">
+      <p class="eyebrow">Projeto · {project.data.status}</p>
+      <h1>{project.data.title}</h1>
+      <p>{project.data.summary}</p>
+
+      <dl class="meta-grid">
+        <div class="meta-item">
+          <dt>Período</dt>
+          <dd>{project.data.period}</dd>
+        </div>
+        <div class="meta-item">
+          <dt>Atuação</dt>
+          <dd>{project.data.role}</dd>
+        </div>
+        <div class="meta-item">
+          <dt>Stack</dt>
+          <dd>{project.data.stack.join(' · ')}</dd>
+        </div>
+      </dl>
+
+      {project.data.externalUrl && (
+        <div class="actions">
+          <a class="button secondary" href={project.data.externalUrl} rel="external">
+            Acessar referência pública ↗
+          </a>
+        </div>
+      )}
+    </div>
+  </header>
+
+  <article class="content narrow">
+    <Content />
+  </article>
+
+  <section class="section">
+    <div class="narrow">
+      <a href="/projetos">← Voltar para projetos</a>
+    </div>
+  </section>
+</BaseLayout>

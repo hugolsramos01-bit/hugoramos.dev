@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Página não encontrada — Hugo Ramos"
+  description="A página solicitada não foi encontrada."
+  noindex={true}
+>
+  <header class="page-header">
+    <div class="container">
+      <p class="eyebrow">404</p>
+      <h1>Página não encontrada.</h1>
+      <p>O endereço pode ter mudado ou não existir.</p>
+      <div class="actions">
+        <a class="button primary" href="/">Voltar ao início</a>
+        <a class="button secondary" href="/projetos">Ver projetos</a>
+      </div>
+    </div>
+  </header>
+</BaseLayout>

@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const description = 'Publicações e apresentações de Hugo Ramos relacionadas a Engenharia de Dados, transparência, patrimônio público e transformação digital.';
+---
+
+<BaseLayout title="Publicações — Hugo Ramos" description={description}>
+  <header class="page-header">
+    <div class="container">
+      <p class="eyebrow">Publicações</p>
+      <h1>Pesquisa aplicada e apresentação de soluções.</h1>
+      <p>
+        Trabalhos que documentam decisões, resultados e aprendizados desenvolvidos a partir de projetos técnicos reais.
+      </p>
+    </div>
+  </header>
+
+  <section class="content narrow">
+    <article>
+      <p class="eyebrow">XV CONSAD · 2026</p>
+      <h2>Transparência ativa no patrimônio imobiliário</h2>
+      <p>
+        <strong>Dados abertos por camadas, rastreabilidade e auditoria contínua.</strong>
+      </p>
+      <p>
+        Trabalho técnico relacionado ao Atlas.PE, desenvolvido no contexto da gestão do patrimônio imobiliário de Pernambuco.
+        O artigo aborda a organização de dados em camadas, histórico de alterações, transparência ativa e mecanismos de auditoria.
+      </p>
+      <p>
+        O projeto foi apresentado no XV Congresso CONSAD de Gestão Pública, em Fortaleza.
+      </p>
+      <div class="actions">
+        <a class="button secondary" href="/projetos/atlas-pe">Ver projeto Atlas.PE</a>
+      </div>
+    </article>
+
+    <h2>GeoPE no XV CONSAD</h2>
+    <p>
+      O GeoPE também integrou os trabalhos apresentados no congresso, com foco na dimensão territorial da gestão patrimonial e no uso de dados geoespaciais para consulta e apoio à decisão.
+    </p>
+    <div class="actions">
+      <a class="button secondary" href="/projetos/geope">Ver projeto GeoPE</a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,149 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = (await getCollection('projects', ({ data }) => data.public && data.featured))
+  .sort((a, b) => a.data.order - b.data.order);
+
+const articles = (await getCollection('articles', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
+  .slice(0, 2);
+
+const description = 'Hugo Ramos é profissional de Engenharia de Dados e Engenharia de Software em Recife, com atuação em Python, PostgreSQL, FastAPI, APIs, automação e sistemas orientados a dados.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  '@id': 'https://hugoramos.dev/#profile-page',
+  url: 'https://hugoramos.dev/',
+  name: 'Hugo Ramos — Engenharia de Dados e Software',
+  description,
+  mainEntity: {
+    '@type': 'Person',
+    '@id': 'https://hugoramos.dev/#person',
+    name: 'Hugo Ramos',
+    alternateName: 'Hugo Leonardo dos Santos Ramos',
+    url: 'https://hugoramos.dev/',
+    jobTitle: 'Data & Software Engineer',
+    description: 'Profissional de Engenharia de Dados e Engenharia de Software com atuação em sistemas orientados a dados, APIs, automação e analytics.',
+    homeLocation: {
+      '@type': 'Place',
+      name: 'Recife, Pernambuco, Brasil',
+    },
+    sameAs: [
+      'https://www.linkedin.com/in/hugo-sramos/',
+      'https://github.com/hugolsramos01-bit',
+    ],
+    knowsAbout: [
+      'Data Engineering',
+      'Software Engineering',
+      'Python',
+      'PostgreSQL',
+      'FastAPI',
+      'REST APIs',
+      'ETL',
+      'Automation',
+      'Model Context Protocol',
+    ],
+  },
+};
+---
+
+<BaseLayout
+  title="Hugo Ramos — Engenharia de Dados e Software"
+  description={description}
+  jsonLd={jsonLd}
+>
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Recife, Pernambuco · Data & Software Engineering</p>
+      <h1>Hugo Ramos<span>dados que viram sistemas.</span></h1>
+      <p class="hero-copy">
+        Atuo na interseção entre Engenharia de Dados e Engenharia de Software, construindo pipelines,
+        APIs, aplicações e ferramentas que colocam dados em uso.
+      </p>
+      <div class="hero-meta" aria-label="Tecnologias principais">
+        <span>Python</span><span>PostgreSQL</span><span>FastAPI</span><span>React</span><span>TypeScript</span>
+      </div>
+      <div class="actions">
+        <a class="button primary" href="/projetos">Ver projetos</a>
+        <a class="button secondary" href="/sobre">Sobre mim</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Projetos selecionados</h2>
+        <p>
+          Engenharia aplicada a problemas reais: software, dados, geoespacial, automação e ferramentas para agentes de IA.
+        </p>
+      </div>
+      <div class="project-list">
+        {projects.map((project, index) => (
+          <ProjectCard
+            index={String(index + 1).padStart(2, '0')}
+            title={project.data.title}
+            summary={project.data.summary}
+            slug={project.id}
+            status={project.data.status}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Como eu trabalho</h2>
+        <p>
+          Meu foco não é apenas mover dados ou construir telas isoladas. Trabalho na cadeia completa entre origem, regra de negócio e produto final.
+        </p>
+      </div>
+      <div class="stack-grid">
+        <div class="stack-block">
+          <h3>Dados</h3>
+          <p>ETL/ELT, integração de APIs, histórico, qualidade, modelagem e PostgreSQL.</p>
+        </div>
+        <div class="stack-block">
+          <h3>Software</h3>
+          <p>FastAPI, Node.js, React, TypeScript, APIs REST, autenticação, testes e arquitetura.</p>
+        </div>
+        <div class="stack-block">
+          <h3>Operação</h3>
+          <p>Git, CI/CD, observabilidade, documentação técnica, auditoria e rastreabilidade.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Escrevo sobre engenharia</h2>
+        <p>
+          Notas técnicas sobre decisões que surgem no desenvolvimento de sistemas, pipelines e ferramentas orientadas a dados.
+        </p>
+      </div>
+      <div class="article-list">
+        {articles.map((article) => (
+          <a class="article-row" href={`/artigos/${article.id}`}>
+            <time datetime={article.data.publishedAt.toISOString()}>
+              {article.data.publishedAt.toLocaleDateString('pt-BR', { year: 'numeric', month: 'short' })}
+            </time>
+            <div>
+              <h3>{article.data.title}</h3>
+              <p>{article.data.description}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+      <div class="actions">
+        <a class="button secondary" href="/artigos">Todos os artigos</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

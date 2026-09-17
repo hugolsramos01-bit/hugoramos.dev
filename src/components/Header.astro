@@ -1,0 +1,26 @@
+---
+const pathname = Astro.url.pathname;
+const links = [
+  { href: '/sobre', label: 'Sobre' },
+  { href: '/projetos', label: 'Projetos' },
+  { href: '/artigos', label: 'Artigos' },
+  { href: '/publicacoes', label: 'Publicações' },
+  { href: '/contato', label: 'Contato' },
+];
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="Hugo Ramos — início">Hugo Ramos</a>
+    <nav class="site-nav" aria-label="Navegação principal">
+      {links.map((link) => {
+        const active = pathname === link.href || pathname.startsWith(`${link.href}/`);
+        return (
+          <a href={link.href} aria-current={active ? 'page' : undefined}>
+            {link.label}
+          </a>
+        );
+      })}
+    </nav>
+  </div>
+</header>
