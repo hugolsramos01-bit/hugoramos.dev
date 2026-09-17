@@ -9,6 +9,10 @@ interface Props {
   canonical?: string;
   jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
   noindex?: boolean;
+  ogType?: 'website' | 'article';
+  publishedTime?: string;
+  modifiedTime?: string;
+  articleTags?: string[];
 }
 
 const {
@@ -17,7 +21,13 @@ const {
   canonical = new URL(Astro.url.pathname, Astro.site).toString(),
   jsonLd,
   noindex = false,
+  ogType = 'website',
+  publishedTime,
+  modifiedTime,
+  articleTags = [],
 } = Astro.props;
+
+const ogImage = new URL('/og.png', Astro.site).toString();
 ---
 
 <!doctype html>
@@ -31,15 +41,24 @@ const {
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:site_name" content="Hugo Ramos" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content="Hugo Ramos — Engenharia de Dados e Software" />
+    <meta property="og:image:width" content="1730" />
+    <meta property="og:image:height" content="909" />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+    {articleTags.map((tag) => <meta property="article:tag" content={tag} />)}
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="Hugo Ramos — Engenharia de Dados e Software" />
     <title>{title}</title>
     {jsonLd && (
       <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

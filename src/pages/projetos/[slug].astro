@@ -25,12 +25,14 @@ const jsonLd = {
   url: canonical,
   name: project.data.title,
   description,
+  inLanguage: 'pt-BR',
   author: {
     '@type': 'Person',
     '@id': 'https://hugoramos.dev/#person',
     name: 'Hugo Ramos',
   },
   keywords: project.data.stack.join(', '),
+  ...(project.data.externalUrl ? { sameAs: project.data.externalUrl } : {}),
 };
 ---
 

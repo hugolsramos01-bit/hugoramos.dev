@@ -25,12 +25,23 @@ const jsonLd = {
   description: article.data.description,
   datePublished: article.data.publishedAt.toISOString(),
   dateModified: (article.data.updatedAt ?? article.data.publishedAt).toISOString(),
-  mainEntityOfPage: canonical,
+  inLanguage: 'pt-BR',
+  articleSection: 'Engenharia de Dados e Software',
+  image: new URL('/og.png', Astro.site).toString(),
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonical,
+  },
   author: {
     '@type': 'Person',
     '@id': 'https://hugoramos.dev/#person',
     name: 'Hugo Ramos',
     url: 'https://hugoramos.dev/',
+  },
+  publisher: {
+    '@type': 'Person',
+    '@id': 'https://hugoramos.dev/#person',
+    name: 'Hugo Ramos',
   },
   keywords: article.data.tags.join(', '),
 };
@@ -41,6 +52,10 @@ const jsonLd = {
   description={article.data.description}
   canonical={canonical}
   jsonLd={jsonLd}
+  ogType="article"
+  publishedTime={article.data.publishedAt.toISOString()}
+  modifiedTime={(article.data.updatedAt ?? article.data.publishedAt).toISOString()}
+  articleTags={article.data.tags}
 >
   <header class="page-header">
     <div class="narrow">
