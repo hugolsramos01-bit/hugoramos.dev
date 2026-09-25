@@ -7,9 +7,45 @@ const projects = (await getCollection('projects', ({ data }) => data.public))
   .sort((a, b) => a.data.order - b.data.order);
 
 const description = 'Projetos de Hugo Ramos em Engenharia de Dados, Engenharia de Software, APIs, automação, geoespacial e ferramentas para agentes de IA.';
+const canonical = new URL('/projetos', Astro.site).toString();
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': `${canonical}#webpage`,
+      url: canonical,
+      name: 'Projetos — Hugo Ramos',
+      description,
+      inLanguage: 'pt-BR',
+      mainEntity: { '@id': `${canonical}#projects` },
+    },
+    {
+      '@type': 'ItemList',
+      '@id': `${canonical}#projects`,
+      name: 'Projetos selecionados de Hugo Ramos',
+      numberOfItems: projects.length,
+      itemListOrder: 'https://schema.org/ItemListOrderAscending',
+      itemListElement: projects.map((project, index) => {
+        const url = new URL(`/projetos/${project.id}`, Astro.site).toString();
+        return {
+          '@type': 'ListItem',
+          position: index + 1,
+          item: {
+            '@type': 'CreativeWork',
+            '@id': `${url}#project`,
+            url,
+            name: project.data.title,
+            description: project.data.summary,
+          },
+        };
+      }),
+    },
+  ],
+};
 ---
 
-<BaseLayout title="Projetos — Hugo Ramos" description={description}>
+<BaseLayout title="Projetos — Hugo Ramos" description={description} canonical={canonical} jsonLd={jsonLd}>
   <header class="page-header">
     <div class="container">
       <p class="eyebrow">Projetos</p>

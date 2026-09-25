@@ -2,9 +2,41 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const description = 'Contato profissional de Hugo Ramos para oportunidades em Engenharia de Dados, Engenharia de Software, Python, APIs e sistemas orientados a dados.';
+const canonical = new URL('/contato', Astro.site).toString();
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ContactPage',
+      '@id': `${canonical}#webpage`,
+      url: canonical,
+      name: 'Contato — Hugo Ramos',
+      description,
+      inLanguage: 'pt-BR',
+      mainEntity: { '@id': 'https://hugoramos.dev/#person' },
+    },
+    {
+      '@type': 'Person',
+      '@id': 'https://hugoramos.dev/#person',
+      name: 'Hugo Ramos',
+      url: 'https://hugoramos.dev/',
+      email: 'mailto:hugolsramos01@gmail.com',
+      sameAs: [
+        'https://www.linkedin.com/in/hugo-sramos/',
+        'https://github.com/hugolsramos01-bit',
+      ],
+      contactPoint: {
+        '@type': 'ContactPoint',
+        contactType: 'professional inquiries',
+        email: 'hugolsramos01@gmail.com',
+        availableLanguage: 'Portuguese',
+      },
+    },
+  ],
+};
 ---
 
-<BaseLayout title="Contato — Hugo Ramos" description={description}>
+<BaseLayout title="Contato — Hugo Ramos" description={description} canonical={canonical} jsonLd={jsonLd}>
   <header class="page-header">
     <div class="container">
       <p class="eyebrow">Contato</p>

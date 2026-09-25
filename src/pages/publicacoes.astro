@@ -2,9 +2,58 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const description = 'Publicações e apresentações de Hugo Ramos relacionadas a Engenharia de Dados, transparência, patrimônio público e transformação digital.';
+const canonical = new URL('/publicacoes', Astro.site).toString();
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': `${canonical}#webpage`,
+      url: canonical,
+      name: 'Publicações — Hugo Ramos',
+      description,
+      inLanguage: 'pt-BR',
+      mainEntity: { '@id': `${canonical}#publications` },
+    },
+    {
+      '@type': 'ItemList',
+      '@id': `${canonical}#publications`,
+      name: 'Publicações e apresentações técnicas',
+      numberOfItems: 2,
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          item: {
+            '@type': 'CreativeWork',
+            '@id': `${canonical}#consad-2026`,
+            name: 'Transparência ativa no patrimônio imobiliário',
+            description: 'Dados abertos por camadas, rastreabilidade e auditoria contínua.',
+            inLanguage: 'pt-BR',
+            author: { '@id': 'https://hugoramos.dev/#person' },
+            url: canonical,
+          },
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          item: {
+            '@type': 'CreativeWork',
+            '@id': `${canonical}#geope-consad-2026`,
+            name: 'GeoPE e a dimensão territorial da gestão patrimonial',
+            description: 'Apresentação técnica sobre dados geoespaciais para consulta e apoio à decisão.',
+            inLanguage: 'pt-BR',
+            author: { '@id': 'https://hugoramos.dev/#person' },
+            url: canonical,
+          },
+        },
+      ],
+    },
+  ],
+};
 ---
 
-<BaseLayout title="Publicações — Hugo Ramos" description={description}>
+<BaseLayout title="Publicações — Hugo Ramos" description={description} canonical={canonical} jsonLd={jsonLd}>
   <header class="page-header">
     <div class="container">
       <p class="eyebrow">Publicações</p>

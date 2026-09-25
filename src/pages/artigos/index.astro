@@ -6,9 +6,49 @@ const articles = (await getCollection('articles', ({ data }) => !data.draft))
   .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
 
 const description = 'Artigos técnicos de Hugo Ramos sobre Engenharia de Dados, Engenharia de Software, PostgreSQL, FastAPI, MCP, automação e sistemas orientados a dados.';
+const canonical = new URL('/artigos', Astro.site).toString();
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': `${canonical}#webpage`,
+      url: canonical,
+      name: 'Artigos — Hugo Ramos',
+      description,
+      inLanguage: 'pt-BR',
+      mainEntity: { '@id': `${canonical}#articles` },
+    },
+    {
+      '@type': 'ItemList',
+      '@id': `${canonical}#articles`,
+      name: 'Artigos técnicos de Hugo Ramos',
+      numberOfItems: articles.length,
+      itemListOrder: 'https://schema.org/ItemListOrderDescending',
+      itemListElement: articles.map((article, index) => {
+        const url = new URL(`/artigos/${article.id}`, Astro.site).toString();
+        return {
+          '@type': 'ListItem',
+          position: index + 1,
+          item: {
+            '@type': 'Article',
+            '@id': `${url}#article`,
+            url,
+            headline: article.data.title,
+            description: article.data.description,
+            datePublished: article.data.publishedAt.toISOString(),
+            dateModified: (article.data.updatedAt ?? article.data.publishedAt).toISOString(),
+            inLanguage: 'pt-BR',
+            author: { '@id': 'https://hugoramos.dev/#person' },
+          },
+        };
+      }),
+    },
+  ],
+};
 ---
 
-<BaseLayout title="Artigos — Hugo Ramos" description={description}>
+<BaseLayout title="Artigos — Hugo Ramos" description={description} canonical={canonical} jsonLd={jsonLd}>
   <header class="page-header">
     <div class="container">
       <p class="eyebrow">Artigos</p>
